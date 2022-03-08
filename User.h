@@ -1,4 +1,3 @@
-using namespace std;
 #include <iostream>
 #include <vector>
 #include "Product.h"
@@ -21,7 +20,8 @@ private:
 
 class Seller : public User{
 public:
-    Seller() : User(){};
+    Seller() : User(){}
+    void DisplayMenu();
     bool AddProductForSale(Product* for_sale);
     double CheckAccount();
     bool RateBuyer(int buyer_id, int rating, string message);
@@ -37,6 +37,7 @@ private:
 class Buyer : public User{
 public:
     Buyer() : User(){};
+    void DisplayMenu();
     void ViewProducts();
     bool PlaceBid(int product_id, float bid);
     bool RateSeller(int seller_id, string message);
