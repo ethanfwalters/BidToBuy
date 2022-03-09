@@ -4,26 +4,29 @@
 
 class User{
 public:
-    User();
+    User(string name, double account_balance);
     void DisplayMessages(int form_id);
     void DisplayAllMessages();
     void ReceiveMessage(int from_id, string message);
     bool SendMessage(int to_id, string message);
+    double CheckAccount();
+    int get_user_id(){return user_id_;};
+    string get_name(){return name_;};
 private:
     int user_id_;
-    float account_balance_;
+    double account_balance_;
     string name_;
     int id_;
     vector<string> received_messages_;
+    static int num_users_;
 };
 
 
 class Seller : public User{
 public:
-    Seller() : User(){}
+    Seller(string name, double account_balance) : User(name, account_balance){};
     void DisplayMenu();
     bool AddProductForSale(Product* for_sale);
-    double CheckAccount();
     bool RateBuyer(int buyer_id, int rating, string message);
     void UpdateUserInfo(Seller s);
     void ViewProducts();
@@ -36,7 +39,7 @@ private:
 
 class Buyer : public User{
 public:
-    Buyer() : User(){};
+    Buyer(string name, double account_balance) : User(name, account_balance){};
     void DisplayMenu();
     void ViewProducts();
     bool PlaceBid(int product_id, float bid);

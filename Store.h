@@ -5,7 +5,7 @@
 
 class Store{
 public:
-    static Store& GetInstance();
+    Store();
     int AddUser(User* new_user);
     void RemoveUser(int user_id);
     void MessageUser(int from_id, int to_id, string message);
@@ -18,8 +18,9 @@ public:
     map<pair<int, string>,string> ProductTable;
     map<int, float> BidTableProduct(int product_id);
     void PlaceBid(int product_id, int user_id, float price);
+    bool CheckIsUser(int id);
+    User* GetUser(int id);
 private:
-    Store();
     map<int, User*> users_;
     map<int, Product*> products_;
     map<int, map<string,int>> ratings_;

@@ -2,10 +2,19 @@
 using namespace std;
 
 //class user
-User::User(){
 
+int User::num_users_ = 0;
+
+User::User(string name, double account_balance){
+    num_users_++;
+    account_balance_ = account_balance;
+    name_ = name;
+    user_id_ = num_users_;
 }
 
+double User::CheckAccount() {
+    return account_balance_;
+}
 
 
 // class seller:
