@@ -19,5 +19,28 @@ bool Store::CheckIsUser(int id) {
     }
 }
 
+void Store::PrintProducts() {
+    auto itter = products_.begin();
+    while(itter != products_.end()){
+        Product *temp = itter->second;
+        cout << "-----------------------------------------\n";
+        cout << "Product: " << temp->get_product_name() << endl;
+        cout << endl;
+        cout << "Description: " << temp->get_product_desc() << endl;
+        cout << endl;
+        cout << "Current Price: " << temp->get_current_price() << endl;
+        cout << endl;
+        cout << "Min bid price: " << temp->get_min_bid() << endl;
+        cout << endl;
+        cout << "Is closed: " << boolalpha << temp->get_is_closed() << endl;
+        cout << endl;
+        cout << "Product ID: " << temp->get_product_id() << endl;
+        cout << "-----------------------------------------\n";
+        cout << endl << endl;
+
+        ++itter;
+    }
+}
+
 Store::Store(){
 }

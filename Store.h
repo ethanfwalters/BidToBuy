@@ -15,6 +15,7 @@ public:
     void closeProduct(int product_id);
     Product* GetProduct(int product_id);
     void RemoveProduct(int product_id);
+    void PrintProducts();
     map<pair<int, string>,string> ProductTable;
     map<int, float> BidTableProduct(int product_id);
     void PlaceBid(int product_id, int user_id, float price);

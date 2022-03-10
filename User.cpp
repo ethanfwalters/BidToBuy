@@ -40,8 +40,23 @@ void Seller::AddProductForSale(Product *for_sale) {
 bool Seller::OpenProduct(int target_product){
     bool isOpened = false;
     for(int i = 0; i < current_for_sale_.size(); i++){
-
+        if(current_for_sale_[i]->get_product_id() == target_product){
+            current_for_sale_[i]->set_is_closed(false);
+            isOpened = true;
+        }
     }
+    return isOpened;
+}
+
+bool Seller::CloseProduct(int target_product) {
+    bool isClosed = false;
+    for(int i =0; i < current_for_sale_.size(); i++){
+        if(current_for_sale_[i]->get_product_id() == target_product){
+            current_for_sale_[i]->set_is_closed(true);
+            isClosed = true;
+        }
+    }
+    return isClosed;
 }
 
 

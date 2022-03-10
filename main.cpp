@@ -145,9 +145,33 @@ void UpdateInfo(User *u){
 
 void OpenProduct(Seller &seller){
     int id;
-    cout << "What is the id of the product you want to open?\n";
+    cout << "What is the id of the product you want to open?\n:";
     cin >> id;
-    seller.OpenProduct(id);
+    bool opened = seller.OpenProduct(id);
+    if(opened){
+        cout << "You successfully opened the product!" << endl;
+    }
+    else{
+        cout << "The product was not found!\n";
+    }
+
+}
+
+void CloseProduct(Seller &seller){
+    int id;
+    cout << "What is the id of the product you want to close?\n:";
+    cin >> id;
+    bool closed = seller.CloseProduct(id);
+    if(closed){
+        cout << "------------------------------------" << endl;
+        cout << "You successfully closed the product!" << endl;
+        cout << "------------------------------------" << endl;
+    }
+    else{
+        cout << "--------------------------" << endl;
+        cout << "The product was not found!\n";
+        cout << "--------------------------" << endl;
+    }
 }
 
 int main(){
@@ -190,7 +214,7 @@ int main(){
                     OpenProduct(s);
                     break;
                 case 8:
-                    cout << "Close a product\n";
+                    CloseProduct(s);
                     break;
                 default:
                     cout << "Goodbye!\n";
@@ -204,13 +228,26 @@ int main(){
         Buyer &b = buyerIntake(store);
         bool isDone = false;
         // while loop for doing things
+        // TODO: this is for testing and should be deleted.
+        Seller s = Seller("dave", 96.0);
+        Product toy = Product("toy", "very fun toy", 3);
+        Product leaf = Product("leaf", "super green", 1.5);
+        Product bottle = Product("waterbottle", "so thurst", 9.99);
+        s.AddProductForSale(&toy);
+        store.AddProduct(&toy);
+        s.AddProductForSale(&leaf);
+        store.AddProduct(&leaf);
+        s.AddProductForSale(&bottle);
+        store.AddProduct(&bottle);
+        s.ViewProducts();
+        // TODO: end the deleted things
         while (!isDone){
             int userChoice;
             b.DisplayMenu();
             cin >> userChoice;
             switch(userChoice){
                 case 1:
-                    cout << "View Products\n";
+                    store.PrintProducts();
                     break;
                 case 2:
                     cout << "Place a bid\n";
