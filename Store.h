@@ -10,7 +10,7 @@ public:
     void RemoveUser(int user_id);
     void MessageUser(int from_id, int to_id, string message);
     void RateUser(int from_id, int to_id, string message);
-    int AddProduct(Product* new_product);
+    void AddProduct(Product *new_product);
     void OpenProduct(int product_id);
     void closeProduct(int product_id);
     Product* GetProduct(int product_id);

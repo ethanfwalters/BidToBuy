@@ -1,5 +1,7 @@
 #include "Store.h"
 #include <vector>
+#include <iostream>
+#include <string>
 #include <map>
 
 bool sellerOrBuyer() {
@@ -99,6 +101,55 @@ Buyer& buyerIntake(Store& store) {
     }
 }
 
+void AddProduct(Seller &seller, Store &pStore) {
+    double min_bid;
+    string product_name;
+    string product_desc;
+    string titles[] = {"Enter the product name\n", "Enter the product description\n:"};
+    // i do not know why i need this other getline and it doesnt seem like it is very good practice but it works i think?
+    string temp;
+    getline(cin, temp);
+    cout << titles[0];
+    getline(cin, product_name);
+    cout << titles[1];
+    getline(cin, product_desc);
+//    cout << titles[0];
+//    cin >> product_name;
+//    cout << titles[1];
+//    cin >> product_desc;
+    cout << "Please enter the min bid price\n$";
+    cin >> min_bid;
+    //Product nProduct = Product(product_name, product_desc, min_bid);
+    Product * newPro = Product::Clone(product_name,product_desc,min_bid);
+    pStore.AddProduct(newPro);
+    seller.AddProductForSale(newPro);
+}
+
+void UpdateInfo(User *u){
+    // name, account ballance
+    string name;
+    double account_bal;
+    string temp;
+    getline(cin, temp);
+    cout << "Your current name is " + u->get_name() + " what would you like to change it to?\n:";
+    getline(cin, name);
+    cout << "Your current ballance is ";
+    cout << u->CheckAccount();
+    cout << " what would you like to change it to?\n:";
+    cin >> account_bal;
+    u->set_name(name);
+    u->set_ballance(account_bal);
+    cout << "All done, thanks!" << endl;
+
+}
+
+void OpenProduct(Seller &seller){
+    int id;
+    cout << "What is the id of the product you want to open?\n";
+    cin >> id;
+    seller.OpenProduct(id);
+}
+
 int main(){
     // need to figure out how to add from the csv file
 
@@ -112,11 +163,10 @@ int main(){
         while (!isDone){
             int userChoice;
             s.DisplayMenu();
-            cout << s.get_name() << endl;
             cin >> userChoice;
             switch(userChoice){
                 case 1:
-                    cout << "Add a product for sale\n";
+                    AddProduct(s,store);
                     break;
                 case 2:
                     cout << "\n------------------------------------------------\n";
@@ -128,16 +178,16 @@ int main(){
                     cout << "Rate a buyer\n";
                     break;
                 case 4:
-                    cout << "Update user information \n";
+                    UpdateInfo(&s);
                     break;
                 case 5:
-                    cout << "View Products\n";
+                    s.ViewProducts();
                     break;
                 case 6:
                     cout << "View Bids\n";
                     break;
                 case 7:
-                    cout << "Open a new Product\n";
+                    OpenProduct(s);
                     break;
                 case 8:
                     cout << "Close a product\n";
@@ -170,6 +220,12 @@ int main(){
                     break;
                 case 4:
                     cout << "View my Bids \n";
+                    break;
+                case 5:
+                    cout << "\n------------------------------------------------\n";
+                    cout << "The account balance for " + b.get_name() + " is $";
+                    cout << b.CheckAccount() << endl;
+                    cout << "\n------------------------------------------------\n";
                     break;
                 default:
                     cout << "Goodbye!\n";

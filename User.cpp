@@ -1,4 +1,5 @@
 #include "User.h"
+#include <vector>
 using namespace std;
 
 //class user
@@ -32,6 +33,37 @@ void Seller::DisplayMenu() {
     cout << "(9) Exit system\n";
 }
 
+void Seller::AddProductForSale(Product *for_sale) {
+    current_for_sale_.push_back(for_sale);
+}
+
+bool Seller::OpenProduct(int target_product){
+    bool isOpened = false;
+    for(int i = 0; i < current_for_sale_.size(); i++){
+
+    }
+}
+
+
+void Seller::ViewProducts() {
+    for(int i = 0; i< current_for_sale_.size();i++){
+        cout << "-----------------------------------------\n";
+        cout << "Product: " << current_for_sale_[i]->get_product_name() << endl;
+        cout << endl;
+        cout << "Description: " << current_for_sale_[i]->get_product_desc() << endl;
+        cout << endl;
+        cout << "Current Price: " << current_for_sale_[i]->get_current_price() << endl;
+        cout << endl;
+        cout << "Min bid price: " << current_for_sale_[i]->get_min_bid() << endl;
+        cout << endl;
+        cout << "Is closed: " << boolalpha << current_for_sale_[i]->get_is_closed() << endl;
+        cout << endl;
+        cout << "Product ID: " << current_for_sale_[i]->get_product_id() << endl;
+        cout << "-----------------------------------------\n";
+        cout << endl << endl;
+    }
+}
+
 
 // class for buyer:
 
@@ -41,5 +73,6 @@ void Buyer::DisplayMenu() {
     cout << "(2) Place a bid!\n";
     cout << "(3) Rate a seller\n";
     cout << "(4) View my Bids\n";
-    cout << "(5) Exit system\n";
+    cout << "(5) Check account\n";
+    cout << "(6) Exit system\n";
 }
