@@ -3,6 +3,21 @@
 #include <vector>
 #include <map>
 
+struct Bid{
+    Bid(double amount, Product * product, Buyer &buyer, User * seller) : buyer_(buyer){
+        amount_ = amount;
+        product_ = product;
+        product_ = product;
+        seller_ = seller;
+    }
+    double amount_;
+    Product * product_;
+    User & buyer_;
+    User * seller_;
+};
+
+
+
 class Store{
 public:
     Store();
@@ -16,12 +31,18 @@ public:
     Product* GetProduct(int product_id);
     void RemoveProduct(int product_id);
     void PrintProducts();
+    void ViewBidsSeller(User &u);
+    void ViewBidsBuyer(User &u);
+    void ViewUsers();
+    void RateUser(User * u);
     map<pair<int, string>,string> ProductTable;
     map<int, float> BidTableProduct(int product_id);
-    void PlaceBid(int product_id, int user_id, float price);
+    void PlaceBid(Buyer &buyer);
     bool CheckIsUser(int id);
     User* GetUser(int id);
 private:
+    vector<Bid> bids_;
+
     map<int, User*> users_;
     map<int, Product*> products_;
     map<int, map<string,int>> ratings_;

@@ -15,13 +15,15 @@ public:
     string get_name(){return name_;};
     void set_name(string name){name_ = name;};
     void set_ballance(double bal){account_balance_ = bal;};
+    void set_rating(int rating);
+    int get_rating(){return rating_;};
 private:
     int user_id_;
     double account_balance_;
     string name_;
-    int id_;
     vector<string> received_messages_;
     static int num_users_;
+    int rating_;
 };
 
 
@@ -30,7 +32,7 @@ public:
     Seller(string name, double account_balance) : User(name, account_balance){};
     void DisplayMenu();
     void AddProductForSale(Product* for_sale);
-    bool RateBuyer(int buyer_id, int rating, string message);
+    bool RateBuyer(int buyer_id, int rating);
     void ViewProducts();
     void ViewBids(Product on);
     bool OpenProduct(int target_product);

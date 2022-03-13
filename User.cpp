@@ -11,12 +11,16 @@ User::User(string name, double account_balance){
     account_balance_ = account_balance;
     name_ = name;
     user_id_ = num_users_;
+    rating_ = -1;
 }
 
 double User::CheckAccount() {
     return account_balance_;
 }
 
+void User::set_rating(int rating) {
+    rating_ = rating;
+}
 
 // class seller:
 

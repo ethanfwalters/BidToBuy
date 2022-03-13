@@ -1,6 +1,7 @@
 #include "Store.h"
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <map>
 
@@ -120,7 +121,7 @@ void AddProduct(Seller &seller, Store &pStore) {
     cout << "Please enter the min bid price\n$";
     cin >> min_bid;
     //Product nProduct = Product(product_name, product_desc, min_bid);
-    Product * newPro = Product::Clone(product_name,product_desc,min_bid);
+    Product *newPro = Product::Clone(product_name,product_desc,min_bid,seller.get_user_id());
     pStore.AddProduct(newPro);
     seller.AddProductForSale(newPro);
 }
@@ -174,14 +175,37 @@ void CloseProduct(Seller &seller){
     }
 }
 
+//void SellerFromCSV(Store &store){
+//    fstream fin;
+//    fin.open("sellers.csv", ios::in);
+//
+//
+//}
+
 int main(){
     // need to figure out how to add from the csv file
 
     Store store = Store();
+    //SellerFromCSV(&store);
     bool isSeller = sellerOrBuyer();
     if(isSeller){
         // this is if the user is a seller
         Seller &s = sellerIntake(store);
+        // TODO: adding things for the buyer testing
+        Product toy = Product("toy", "very fun toy", 3, s.get_user_id());
+        Product leaf = Product("leaf", "super green", 1.5, s.get_user_id());
+        Product bottle = Product("waterbottle", "so thurst", 9.99, s.get_user_id());
+        s.AddProductForSale(&toy);
+        store.AddProduct(&toy);
+        s.AddProductForSale(&leaf);
+        store.AddProduct(&leaf);
+        s.AddProductForSale(&bottle);
+        store.AddProduct(&bottle);
+        Buyer b = Buyer("dick", 900);
+        store.AddUser(&b);
+        store.PrintProducts();
+        store.PlaceBid(b);
+        // TODO: end the testing
         bool isDone = false;
         // while loop for doing things
         while (!isDone){
@@ -199,7 +223,8 @@ int main(){
                     cout << "\n------------------------------------------------\n";
                     break;
                 case 3:
-                    cout << "Rate a buyer\n";
+                    store.ViewUsers();
+                    store.RateUser(&s);
                     break;
                 case 4:
                     UpdateInfo(&s);
@@ -208,7 +233,7 @@ int main(){
                     s.ViewProducts();
                     break;
                 case 6:
-                    cout << "View Bids\n";
+                    store.ViewBidsSeller(s);
                     break;
                 case 7:
                     OpenProduct(s);
@@ -230,16 +255,18 @@ int main(){
         // while loop for doing things
         // TODO: this is for testing and should be deleted.
         Seller s = Seller("dave", 96.0);
-        Product toy = Product("toy", "very fun toy", 3);
-        Product leaf = Product("leaf", "super green", 1.5);
-        Product bottle = Product("waterbottle", "so thurst", 9.99);
+        store.AddUser(&s);
+        Product toy = Product("toy", "very fun toy", 3, s.get_user_id());
+        Product leaf = Product("leaf", "super green", 1.5, s.get_user_id());
+        Product bottle = Product("waterbottle", "so thurst", 9.99, s.get_user_id());
         s.AddProductForSale(&toy);
         store.AddProduct(&toy);
         s.AddProductForSale(&leaf);
         store.AddProduct(&leaf);
         s.AddProductForSale(&bottle);
         store.AddProduct(&bottle);
-        s.ViewProducts();
+        //s.ViewProducts();
+        //store.PlaceBid(b);
         // TODO: end the deleted things
         while (!isDone){
             int userChoice;
@@ -250,13 +277,14 @@ int main(){
                     store.PrintProducts();
                     break;
                 case 2:
-                    cout << "Place a bid\n";
+                    store.PlaceBid(b);
                     break;
                 case 3:
-                    cout << "Rate a seller\n";
+                    store.ViewUsers();
+                    store.RateUser(&b);
                     break;
                 case 4:
-                    cout << "View my Bids \n";
+                    store.ViewBidsBuyer(b);
                     break;
                 case 5:
                     cout << "\n------------------------------------------------\n";
