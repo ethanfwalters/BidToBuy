@@ -16,6 +16,17 @@ struct Bid{
     User * seller_;
 };
 
+struct Messages{
+    Messages(int to_id, int from_id, string message){
+        to_id_ = to_id;
+        from_id_ = from_id;
+        message_ = message;
+    }
+    int to_id_;
+    int from_id_;
+    string message_;
+};
+
 
 
 class Store{
@@ -39,10 +50,15 @@ public:
     map<int, float> BidTableProduct(int product_id);
     void PlaceBid(Buyer &buyer);
     bool CheckIsUser(int id);
-    User* GetUser(int id);
+    void SendMessage(User & from);
+    void ViewMessages(User & from);
+    void AddMessage(Messages m);
+//    Buyer& GetBuyer(int id);
+//    User GetSeller(int id);
+    User& GetUser(int id);
 private:
     vector<Bid> bids_;
-
+    vector<Messages> messages_;
     map<int, User*> users_;
     map<int, Product*> products_;
     map<int, map<string,int>> ratings_;

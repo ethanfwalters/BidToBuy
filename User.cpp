@@ -6,6 +6,11 @@ using namespace std;
 
 int User::num_users_ = 0;
 
+/**
+ * constructor for the users; main one that is always called
+ * @param name of the new user
+ * @param account_balance of the new user
+ */
 User::User(string name, double account_balance){
     num_users_++;
     account_balance_ = account_balance;
@@ -14,16 +19,27 @@ User::User(string name, double account_balance){
     rating_ = -1;
 }
 
+/**
+ * returns the account ballance for the user
+ * @return account balance
+ */
 double User::CheckAccount() {
     return account_balance_;
 }
 
+/**
+ * sets the rating
+ * @param rating
+ */
 void User::set_rating(int rating) {
     rating_ = rating;
 }
 
 // class seller:
 
+/**
+ * shows all of the options that the seller can take
+ */
 void Seller::DisplayMenu() {
     cout << "What would you like to do?\n";
     cout << "(1) Add a product for sale\n";
@@ -34,15 +50,29 @@ void Seller::DisplayMenu() {
     cout << "(6) View Bids\n";
     cout << "(7) Open a new Product\n";
     cout << "(8) Close a product\n";
-    cout << "(9) Exit system\n";
+    cout << "(9) Send a message\n";
+    cout << "(10) View messages\n";
+    cout << "(11) Exit system\n";
 }
 
+/**
+ * adds a product to the array of products in the user
+ * takes in the new procut that will be added
+ * @param for_sale
+ */
 void Seller::AddProductForSale(Product *for_sale) {
     current_for_sale_.push_back(for_sale);
 }
 
+/**
+ * opens a product
+ * takes in the id of the product trying to be found
+ * @param target_product
+ * @return if the product was opened or not
+ */
 bool Seller::OpenProduct(int target_product){
     bool isOpened = false;
+    // find the product in the product array
     for(int i = 0; i < current_for_sale_.size(); i++){
         if(current_for_sale_[i]->get_product_id() == target_product){
             current_for_sale_[i]->set_is_closed(false);
@@ -52,8 +82,15 @@ bool Seller::OpenProduct(int target_product){
     return isOpened;
 }
 
+/**
+ * closes a product
+ * takes in id of the product trying to be found
+ * @param target_product
+ * @return if the product was found and closed
+ */
 bool Seller::CloseProduct(int target_product) {
     bool isClosed = false;
+    // find product in product array
     for(int i =0; i < current_for_sale_.size(); i++){
         if(current_for_sale_[i]->get_product_id() == target_product){
             current_for_sale_[i]->set_is_closed(true);
@@ -63,8 +100,11 @@ bool Seller::CloseProduct(int target_product) {
     return isClosed;
 }
 
-
+/**
+ * goes though and prints out all the products in the array of products
+ */
 void Seller::ViewProducts() {
+    // looping through the array of products in user
     for(int i = 0; i< current_for_sale_.size();i++){
         cout << "-----------------------------------------\n";
         cout << "Product: " << current_for_sale_[i]->get_product_name() << endl;
@@ -86,6 +126,9 @@ void Seller::ViewProducts() {
 
 // class for buyer:
 
+/**
+ * shows the options that the buyer can take
+ */
 void Buyer::DisplayMenu() {
     cout << "What would you like to do?\n";
     cout << "(1) View products\n";
@@ -93,5 +136,7 @@ void Buyer::DisplayMenu() {
     cout << "(3) Rate a seller\n";
     cout << "(4) View my Bids\n";
     cout << "(5) Check account\n";
-    cout << "(6) Exit system\n";
+    cout << "(6) Send Message\n";
+    cout << "(7) View Message\n";
+    cout << "(8) Exit system\n";
 }

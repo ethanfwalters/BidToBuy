@@ -1,8 +1,16 @@
 using namespace std;
 #include "Product.h"
 
+// const number of products, used for product id
 int Product::num_Products = 0;
 
+/**
+ * constructor for the products
+ * @param name
+ * @param desc
+ * @param min_price
+ * @param user_id
+ */
 Product::Product(string name, string desc, double min_price, int user_id) {
     num_Products++;
     product_name_ = name;

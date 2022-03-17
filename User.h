@@ -37,6 +37,7 @@ public:
     void ViewBids(Product on);
     bool OpenProduct(int target_product);
     bool CloseProduct(int target_product);
+    static Seller* Clone(string name, double acc_bal){return new Seller(name,acc_bal);};
 private:
     vector<Product*> current_for_sale_;
 };
@@ -49,6 +50,7 @@ public:
     bool PlaceBid(int product_id, float bid);
     bool RateSeller(int seller_id, string message);
     void ViewMyBids();
+    static Buyer* Clone(string name, double acc_bal){return new Buyer(name,acc_bal);};
 private:
     vector<int> bid_products_;
 };
